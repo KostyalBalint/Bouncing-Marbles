@@ -10,3 +10,10 @@ Van egy zárt, függőleges henger, ami a tengelyét tartalmazó kis fallal két
 ## Elvárt működés 
 
 Egy idő után a két rekeszben a gyöngyök száma állandósul (persze kicsit fluktuál). Ha kicsi az amplitúdó, akkor a gyöngyök nagyobb része abban a rekeszben marad, ahová töltöttük őket. Aztán növelve az amplitúdót, a két részben lévő gyöngyök száma kiegyenlítődik.
+
+## TODO
+
+- [ ] Responsive elrendezés
+- [ ] Gombok és sliderek működése
+- [ ] Gyöngyök számának beállítása
+- [ ] A falak mozogjanak együtt a platformmal 
