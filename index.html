@@ -20,13 +20,13 @@
               <h3 class="text-center text-white">Setting</h3>
               <hr>
               <button type="button" class="btn btn-success">Start</button>
-              <button type="button" class="btn btn-info">Pause</button>
+              <button type="button" class="btn btn-info" onclick="setFreq()">Set frequency</button>
               <button type="button" class="btn btn-danger">Restart</button>
               <hr>
-              <label for="range-freq" class="form-label text-white">Frequency (20 Hz)</label>
-              <input type="range" class="form-range w-100" id="range-freq">
-              <label for="range-amp" class="form-label text-white">Amplitude (10)</label>
-              <input type="range" class="form-range w-100" id="range-amp">
+              <label for="range-freq" class="form-label text-white" id="freqdisp">Frequency (1)</label>
+              <input type="range" class="form-range w-100" id="range-freq" oninput="displayfreq()" min="0" max="20" value="1">
+              <label for="range-amp" class="form-label text-white" id="ampdisp">Amplitude (1)</label>
+              <input type="range" class="form-range w-100" id="range-amp" oninput="displayamp()"  min="0" max="20" value="1">
             </div>
           </div>
         </div>

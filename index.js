@@ -29,11 +29,15 @@ window.onload = () => {
   var objects = [];
   var r = 5;
 
-  for (var i = 0; i < 20; i++) {
-    for (var j = 0; j < 20; j++) {
+  for (var i = 0; i < 5; i++) {
+    for (var j = 0; j < 5; j++) {
       objects.push(Bodies.circle(50 + i*r*2, 50 + j*r*2, r));
     }
   }
+  for (var i = 0; i < 10; i++) {
+	objects.pop();  
+  }
+  
   Composite.add(engine.world, objects);
 
   //Create walls
@@ -53,15 +57,25 @@ window.onload = () => {
   // run the engine
   Runner.run(runner, engine);
 
-  setFreq(1);
+  setFreq();
   Events.on(engine, 'beforeUpdate', (event) =>{
-    var py = 500+ 50 * Math.sin(engine.timing.timestamp * (window.freq / 1000));
+    var py = 500+ 200 * Math.sin(engine.timing.timestamp * (window.freq / 1000));
     Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
     Body.setPosition(ground, { x: ground.position.x, y: py });
   });
 
 };
 
-function setFreq(freq){
-  window.freq = freq;
+function setFreq(){
+	var f = document.getElementById("range-freq").value;
+	window.freq = f;
+}
+
+function displayfreq() {
+	var r = document.getElementById("range-freq").value;
+	document.getElementById("freqdisp").innerHTML = "Frequency (" + r + ")";
+}
+function displayamp() {
+	var r = document.getElementById("range-amp").value;
+	document.getElementById("freqdisp").innerHTML = "Amplitude (" + r + ")";
 }
