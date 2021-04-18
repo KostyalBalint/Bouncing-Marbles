@@ -15,5 +15,8 @@ Egy idő után a két rekeszben a gyöngyök száma állandósul (persze kicsit 
 
 - [ ] Responsive elrendezés
 - [X] Gombok és sliderek működése
-- [ ] Gyöngyök számának beállítása
+- [X] Gyöngyök számának beállítása
 - [ ] A falak mozogjanak együtt a platformmal 
+- [X] Színek használata
+- [X] Szimuláció idejének kijelzése
+- [X] Gyöngyök darabszámának kijelzése oldalanként
