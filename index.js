@@ -17,7 +17,7 @@ function wall(x, y, w, h){
     frictionStatic: 0,
     isStatic: true,
     render: {
-      fillStyle: 'grey', 
+      fillStyle: '#2C3F50', 
       strokeStyle: 'white',
       lineWidth: 0
     }
@@ -49,8 +49,8 @@ window.onload = () => {
 
   //Create ground and divider
   var ground = Body.create({
-    parts: [Bodies.rectangle(400, 150, 810, 200, { render: {fillStyle: 'none', strokeStyle: 'white',lineWidth: 3} }),
-            Bodies.rectangle(400, -100, 20, 300, { render: {fillStyle: 'none', strokeStyle: 'white',lineWidth: 3} })],
+    parts: [Bodies.rectangle(400, 150, 810, 200, { render: {fillStyle: '#ECF0F1', strokeStyle: 'none'} }),
+            Bodies.rectangle(400, -100, 20, 300, { render: {fillStyle: '#ECF0F1', strokeStyle: 'none'} })],
     isStatic: true,
   });
   // add all of the bodies to the world
@@ -114,8 +114,8 @@ window.onload = () => {
     //Counting marbles
     let left = 0; right = 0;
     objects.forEach(element => {
-      if (element.position.x > 400) {right++; element.render.fillStyle = 'red'}
-      else {left++; element.render.fillStyle = 'blue'}
+      if (element.position.x > 400) {right++; element.render.fillStyle = '#E84C3D'}
+      else {left++; element.render.fillStyle = '#3297DB'}
       document.getElementById("label-left").innerHTML = "Left (" + left + ")";
       document.getElementById("label-right").innerHTML = "Right (" + right + ")";
     });
