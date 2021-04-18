@@ -102,7 +102,7 @@ window.onload = () => {
   runner = Runner.create();
 
   // run the engine
-  Runner.run(runner, engine);
+  //Runner.run(runner, engine);
 
   window.freq = 5;
   window.amp = 10;
