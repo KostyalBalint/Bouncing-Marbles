@@ -5,7 +5,7 @@
 Az alkalmazás elérhető az alábbi linken: https://kostyalbalint.github.io/Bouncing-Marbles/
  
 ## Projek leírás
-Van egy zárt, függőleges henger, ami a tengelyét tartalmazó kis fallal két részre van osztva. Az egyik rekeszbe teszünk N darab gyöngyöt, a másik kezdetben üres. A hengert elkezdjük rezgetni függőlegesen (a hely-idő függvénye fűrészfogjel szerint változik), melynek amplitúdóját beállíthatjuk, a frekvencia rögzített. 
+Van egy zárt, függőleges henger, ami a tengelyét tartalmazó kis fallal két részre van osztva. Az egyik rekeszbe teszünk N darab gyöngyöt, a másik kezdetben üres. A hengert elkezdjük rezgetni függőlegesen (a hely-idő függvénye szinusz szerint változik), melynek amplitúdóját, és frekvenciáját állíthatjuk. 
 
 ## Elvárt működés 
 
@@ -15,8 +15,7 @@ Egy idő után a két rekeszben a gyöngyök száma állandósul (persze kicsit 
 
 - [X] Responsive elrendezés
 - [X] Gombok és sliderek működése
-- [X] Gyöngyök számának beállítása
-- [ ] A falak mozogjanak együtt a platformmal 
+- [X] Gyöngyök számának beállítása 
 - [X] Színek használata
 - [X] Szimuláció idejének kijelzése
 - [X] Gyöngyök darabszámának kijelzése oldalanként
