@@ -9,6 +9,10 @@ var Engine = Matter.Engine,
 
 var runner, engine;
 
+function rand(min, max){
+  return Math.random() * (max - min) + min;
+}
+
 //function for adding static rectangles
 //(x coord of centre, y coord of centre, width, height)
 function wall(x, y, w, h){
@@ -108,7 +112,7 @@ window.onload = () => {
   Events.on(engine, 'beforeUpdate', (event) =>{
     //add marbles until have equal to marblecount
     while(marblecount > objects.length){
-      newObject = marble(50, 50, r);
+      newObject = marble(rand(30, 380), rand(20, 500), r);
       objects.push(newObject);
       Composite.add(engine.world, newObject);
     }
@@ -117,6 +121,14 @@ window.onload = () => {
     while(marblecount < objects.length){
       Composite.remove(engine.world, objects.pop());
     }
+
+    //constrain marbles
+    for(var i = 0; i < objects.length; i++){
+      if(objects[i].position.x < 0 || objects[i].position.x > 800 || objects[i].position.y < 0 || objects[i].position.y > 800){
+        Composite.remove(engine.world, objects[i]);
+        objects.splice(i, 1);
+      }
+    };
 
     //update ground and separator velocity and position
     var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
