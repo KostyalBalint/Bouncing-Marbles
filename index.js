@@ -18,12 +18,16 @@ window.onload = () => {
   var render = Render.create({
       element: document.getElementById("canvas-container"),
       engine: engine,
+      options:{
+        wireframes: false,
+      }
   });
 
   //Create ground and divider
   var ground = Body.create({
-    parts: [Bodies.rectangle(400, 150, 810, 200), Bodies.rectangle(400, -75, 20, 300)],
-    isStatic: true
+    parts: [Bodies.rectangle(400, 150, 810, 200, { render: {fillStyle: 'none', strokeStyle: 'white',lineWidth: 3} }),
+            Bodies.rectangle(400, -100, 20, 300, { render: {fillStyle: 'none', strokeStyle: 'white',lineWidth: 3} })],
+    isStatic: true,
   });
   // add all of the bodies to the world
   Composite.add(engine.world, [ground]);
@@ -36,7 +40,7 @@ window.onload = () => {
     let x = 0, y = 0;
     for (var i = 0; i < count; i++) {
       if (50 + x*r*2 >= 390) {x = 0; ++y;} //x can go until the divider
-      objects.push(Bodies.circle(50 + x*r*2, 50 + y*r*2, r));
+      objects.push(Bodies.circle(50 + x*r*2, 50 + y*r*2, r, {render:{fillStyle: 'blue'}}));
       x++;
     }
     Composite.add(engine.world, objects);
@@ -47,10 +51,10 @@ window.onload = () => {
 
   //Create walls
   Composite.add(engine.world, [
-      Bodies.rectangle(400, -25, 800, 100, { isStatic: true }),
-      Bodies.rectangle(400, 625, 800, 100, { isStatic: true }),
-      Bodies.rectangle(825, 300, 100, 600, { isStatic: true }),
-      Bodies.rectangle(-25, 300, 100, 600, { isStatic: true })
+    Bodies.rectangle(400, -25, 800, 100, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} }),
+    Bodies.rectangle(400, 625, 800, 100, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} }),
+    Bodies.rectangle(825, 300, 100, 600, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} }),
+    Bodies.rectangle(-25, 300, 100, 600, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} })
   ]);
 
   // run the renderer
@@ -86,8 +90,8 @@ window.onload = () => {
     //Counting marbles
     let left = 0; right = 0;
     objects.forEach(element => {
-      if (element.position.x > 400) {right++;}
-      else {left++;}
+      if (element.position.x > 400) {right++; element.render.fillStyle = 'red'}
+      else {left++; element.render.fillStyle = 'blue'}
       document.getElementById("label-left").innerHTML = "Left (" + left + ")";
       document.getElementById("label-right").innerHTML = "Right (" + right + ")";
     });
