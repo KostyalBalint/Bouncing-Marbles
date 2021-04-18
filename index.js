@@ -61,8 +61,7 @@ window.onload = () => {
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
-    //TODO: make sure that freqvency is in Hz
-    var py = 600 + window.amp * Math.sin(engine.timing.timestamp * (window.freq / 1000));
+    var py = 600 + window.amp * Math.sin(engine.timing.timestamp * (window.freq / 500));
     Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
     Body.setPosition(ground, { x: ground.position.x, y: py });
   });
