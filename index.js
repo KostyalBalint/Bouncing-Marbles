@@ -31,13 +31,19 @@ window.onload = () => {
   var objects = [];
   var r = 5;
 
-  for (var i = 0; i < 10; i++) {
-    for (var j = 0; j < 10; j++) {
-      objects.push(Bodies.circle(50 + i*r*2, 50 + j*r*2, r));
+  //generate balls
+  function generateMarbles(count){
+    let x = 0, y = 0;
+    for (var i = 0; i < count; i++) {
+      if (50 + x*r*2 >= 390) {x = 0; ++y;} //x can go until the divider
+      objects.push(Bodies.circle(50 + x*r*2, 50 + y*r*2, r));
+      x++;
     }
+    Composite.add(engine.world, objects);
   }
 
-  Composite.add(engine.world, objects);
+  window.marblecount = document.getElementById("range-marblecount").value;
+  generateMarbles(window.marblecount);
 
   //Create walls
   Composite.add(engine.world, [
@@ -58,6 +64,7 @@ window.onload = () => {
 
   window.freq = 5;
   window.amp = 10;
+
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
@@ -80,6 +87,11 @@ window.onload = () => {
     window.amp = amp;
   });
 
+  document.getElementById("range-marblecount").addEventListener('input', () => {
+    window.marblecount = document.getElementById("range-marblecount").value;
+    document.getElementById("label-marblecount").innerHTML = "Marble Count (" + window.marblecount + ")";
+  });
+
   //Start - Pause button
   document.getElementById('btn-pause-start').addEventListener('click', () => {
     runner.enabled = !runner.enabled;
@@ -88,5 +100,14 @@ window.onload = () => {
     btn.classList.toggle("btn-success");
     btn.classList.toggle("btn-info");
   });
+
+  //Restart button
+  document.getElementById("btn-restart").addEventListener("click", () => {
+    objects.forEach(element => {
+      Composite.remove(engine.world, element);
+    });
+    objects = [];
+    generateMarbles(window.marblecount);
+  })
 
 };
