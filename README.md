@@ -15,5 +15,9 @@ Egy idő után a két rekeszben a gyöngyök száma állandósul (persze kicsit 
 
 - [ ] Responsive elrendezés
 - [X] Gombok és sliderek működése
-- [ ] Gyöngyök számának beállítása
+- [X] Gyöngyök számának beállítása
 - [ ] A falak mozogjanak együtt a platformmal 
+- [X] Színek használata
+- [X] Szimuláció idejének kijelzése
+- [X] Gyöngyök darabszámának kijelzése oldalanként
+- [ ] Gyöngyök nagy sebességnél képesek átmenni a falon. Vagy a falak javítása valahogy, vagy a "kiszökött" gyöngyök törlése, és újak visszatétele az adott oldalra, ahová a kiszökött párja esik.
