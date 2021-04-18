@@ -108,6 +108,7 @@ window.onload = () => {
   window.freq = 5;
   window.amp = 10;
 
+  var freqchange;
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
@@ -134,8 +135,11 @@ window.onload = () => {
     //update ground and separator velocity and position
     if(groundActive){
       var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
-      Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
+      if (window.freq == freqchange){ //Frequency change doesnt effect marbles
+        Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
+      }
       Body.setPosition(ground, { x: ground.position.x, y: py });
+      freqchange = window.freq;
     } else {
       Body.setVelocity(ground, { x: 0, y: 0});
     }
