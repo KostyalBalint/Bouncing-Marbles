@@ -100,7 +100,10 @@ window.onload = () => {
   Render.run(render);
 
   // create runner
-  runner = Runner.create();
+  runner = Runner.create({
+    isFixed: true,
+    delta: 1000/60
+  });
 
   // run the engine
   Runner.run(runner, engine);
