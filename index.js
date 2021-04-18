@@ -78,7 +78,7 @@ window.onload = () => {
   function generateMarbles(count){
     let x = 0, y = 0;
     for (var i = 0; i < count; i++) {
-      if (50 + x*r*2 >= 390) {x = 0; ++y;} //x can go until the divider
+      if (50 + x*r*2 >= 380) {x = 0; ++y;} //x can go until the divider
       objects.push(marble(50 + x*r*2, 50 + y*r*2, r));
       x++;
     }
