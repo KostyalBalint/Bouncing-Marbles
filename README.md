@@ -13,7 +13,7 @@ Egy idő után a két rekeszben a gyöngyök száma állandósul (persze kicsit 
 
 ## TODO
 
-- [ ] Responsive elrendezés
+- [X] Responsive elrendezés
 - [X] Gombok és sliderek működése
 - [X] Gyöngyök számának beállítása
 - [ ] A falak mozogjanak együtt a platformmal 
