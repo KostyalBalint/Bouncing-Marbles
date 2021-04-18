@@ -7,10 +7,12 @@ var Engine = Matter.Engine,
     Bodies = Matter.Bodies,
     Composite = Matter.Composite;
 
+var runner, engine;
+
 window.onload = () => {
 
   // create an engine
-  var engine = Engine.create(document.getElementById("canvas-container"));
+  engine = Engine.create(document.getElementById("canvas-container"));
 
   // create a renderer
   var render = Render.create({
@@ -29,15 +31,12 @@ window.onload = () => {
   var objects = [];
   var r = 5;
 
-  for (var i = 0; i < 5; i++) {
-    for (var j = 0; j < 5; j++) {
+  for (var i = 0; i < 10; i++) {
+    for (var j = 0; j < 10; j++) {
       objects.push(Bodies.circle(50 + i*r*2, 50 + j*r*2, r));
     }
   }
-  for (var i = 0; i < 10; i++) {
-	objects.pop();  
-  }
-  
+
   Composite.add(engine.world, objects);
 
   //Create walls
@@ -52,30 +51,40 @@ window.onload = () => {
   Render.run(render);
 
   // create runner
-  var runner = Runner.create();
+  runner = Runner.create();
 
   // run the engine
   Runner.run(runner, engine);
 
-  setFreq();
+  window.freq = 5;
+  window.amp = 10;
+
+  //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
-    var py = 500+ 200 * Math.sin(engine.timing.timestamp * (window.freq / 1000));
+    //TODO: make sure that freqvency is in Hz
+    var py = 600 + window.amp * Math.sin(engine.timing.timestamp * (window.freq / 1000));
     Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
     Body.setPosition(ground, { x: ground.position.x, y: py });
   });
 
+  document.getElementById("range-freq").addEventListener('input', () => {
+    window.freq = document.getElementById("range-freq").value;
+    document.getElementById("label-freq").innerHTML = "Frequency (" + window.freq + " Hz)";
+  });
+
+  document.getElementById("range-amp").addEventListener('input', () => {
+    	let amp = document.getElementById("range-amp").value;
+    	document.getElementById("label-amp").innerHTML = "Amplitude (" + amp + ")";
+      window.amp = amp;
+  });
+
+  //Start - Pause button
+  document.getElementById('btn-pause-start').addEventListener('click', () => {
+    runner.enabled = !runner.enabled;
+    let btn = document.getElementById('btn-pause-start');
+    btn.innerHTML = btn.innerHTML === "Start" ? "Pause" : "Start";
+    btn.classList.toggle("btn-success");
+    btn.classList.toggle("btn-info");
+  });
+
 };
-
-function setFreq(){
-	var f = document.getElementById("range-freq").value;
-	window.freq = f;
-}
-
-function displayfreq() {
-	var r = document.getElementById("range-freq").value;
-	document.getElementById("freqdisp").innerHTML = "Frequency (" + r + ")";
-}
-function displayamp() {
-	var r = document.getElementById("range-amp").value;
-	document.getElementById("freqdisp").innerHTML = "Amplitude (" + r + ")";
-}
