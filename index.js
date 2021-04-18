@@ -9,6 +9,8 @@ var Engine = Matter.Engine,
 
 var runner, engine;
 
+//function for adding static rectangles
+//(x coord of centre, y coord of centre, width, height)
 function wall(x, y, w, h){
   return Bodies.rectangle(x, y, w, h, {
     friction: 0,
@@ -23,13 +25,18 @@ function wall(x, y, w, h){
     }
   });
 }
+
+//function for adding marbles
+//(x coord of centre, y coord of centre, radius)
 function marble(x, y, r){
   return Bodies.circle(x, y, r, {
     friction: 0,
     restitution: 0.8,
     frictionAir: 0,
     frictionStatic: 0,
-    render:{fillStyle: 'blue'}
+    render:{
+      fillStyle: 'SlateBlue'
+    }
   });
 }
 
@@ -49,17 +56,22 @@ window.onload = () => {
 
   //Create ground and divider
   var ground = Body.create({
+    //bottom part
     parts: [Bodies.rectangle(400, 150, 810, 200, { render: {fillStyle: 'none', strokeStyle: 'white',lineWidth: 3} }),
+            //separator
             Bodies.rectangle(400, -100, 20, 300, { render: {fillStyle: 'none', strokeStyle: 'white',lineWidth: 3} })],
     isStatic: true,
   });
   // add all of the bodies to the world
   Composite.add(engine.world, [ground]);
 
+  //array containing the marbles
   var objects = [];
+
+  //radius of marbels
   var r = 5;
 
-  //generate balls
+  //generate marbles
   function generateMarbles(count){
     let x = 0, y = 0;
     for (var i = 0; i < count; i++) {
@@ -96,14 +108,19 @@ window.onload = () => {
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
+    //add marbles until have equal to marblecount
     while(marblecount > objects.length){
       newObject = marble(50, 50, r);
       objects.push(newObject);
       Composite.add(engine.world, newObject);
     }
-      while(marblecount < objects.length){
+
+    //remove marbles until have equal to marblecount
+    while(marblecount < objects.length){
       Composite.remove(engine.world, objects.pop());
     }
+
+    //update ground and separator velocity and position
     var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
     Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
     Body.setPosition(ground, { x: ground.position.x, y: py });
@@ -114,24 +131,27 @@ window.onload = () => {
     //Counting marbles
     let left = 0; right = 0;
     objects.forEach(element => {
-      if (element.position.x > 400) {right++; element.render.fillStyle = 'red'}
-      else {left++; element.render.fillStyle = 'blue'}
+      if (element.position.x > 400) {right++; element.render.fillStyle = 'Brown'}
+      else {left++; element.render.fillStyle = 'SlateBlue'}
       document.getElementById("label-left").innerHTML = "Left (" + left + ")";
       document.getElementById("label-right").innerHTML = "Right (" + right + ")";
     });
   });
 
+  //frequency slider
   document.getElementById("range-freq").addEventListener('input', () => {
     window.freq = document.getElementById("range-freq").value;
     document.getElementById("label-freq").innerHTML = "Frequency (" + window.freq + " Hz)";
   });
 
+  //amplitude slider
   document.getElementById("range-amp").addEventListener('input', () => {
     let amp = document.getElementById("range-amp").value;
     document.getElementById("label-amp").innerHTML = "Amplitude (" + amp + ")";
     window.amp = amp;
   });
 
+  //marblecount slider
   document.getElementById("range-marblecount").addEventListener('input', () => {
     window.marblecount = document.getElementById("range-marblecount").value;
     document.getElementById("label-marblecount").innerHTML = "Marble Count (" + window.marblecount + ")";
