@@ -169,7 +169,7 @@ window.onload = () => {
 	
 	// expand chart
 	if ((engine.timing.timestamp) > prev_sec){
-		prev_sec += 1000;
+		prev_sec += 2800;
 		rates.push(right * 100 / marblecount);
 		labels.push(prev_sec / 1000 - 1);
 		myChart.update();
