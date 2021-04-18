@@ -161,8 +161,8 @@ window.onload = () => {
       if (element.position.x > 400) {right++; element.render.fillStyle = '#E84C3D'}
       else {left++; element.render.fillStyle = '#3297DB'}
     });
-    document.getElementById("label-left").innerHTML = "Left (" + left + ")";
-    document.getElementById("label-right").innerHTML = "Right (" + right + ")";
+    document.getElementById("label-left").innerHTML = "Left: " + left + " Pcs";
+    document.getElementById("label-right").innerHTML = "Right: " + right + " Pcs";
   });
 
   //frequency slider
