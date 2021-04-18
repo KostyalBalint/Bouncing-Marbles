@@ -134,9 +134,12 @@ window.onload = () => {
 
     //update ground and separator velocity and position
     if(groundActive){
-      var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
+      var omega = window.freq * 2 * 3.1415;
+      var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * omega);
+      //var v = -amp * freq / 60;                                                             //sawtooth formula, assuming 60 fps
+      var v = window.amp * omega * Math.cos((engine.timing.timestamp / 1000) * omega)/60;     //sine wave formula, assuming 60 fps
       if (window.freq == freqchange){ //Frequency change doesnt effect marbles
-        Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
+        Body.setVelocity(ground, { x: 0, y: v });
       }
       Body.setPosition(ground, { x: ground.position.x, y: py });
       freqchange = window.freq;
