@@ -59,14 +59,14 @@ window.onload = () => {
   //Create ground and divider
   var ground = Body.create({
     //bottom part
-    parts: [Bodies.rectangle(400, 150, 810, 200, { render: {fillStyle: '#333333', strokeStyle: 'none'} }),
+    parts: [Bodies.rectangle(400, 600, 810, 200, { render: {fillStyle: '#333333', strokeStyle: 'none'} }),
             //separator
-            Bodies.rectangle(400, -100, 20, 300, { render: {fillStyle: '#333333', strokeStyle: 'none'} })],
+            Bodies.rectangle(400, 400, 20, 300, { render: {fillStyle: '#333333', strokeStyle: 'none'} })],
     isStatic: true,
   });
   // add all of the bodies to the world
   Composite.add(engine.world, [ground]);
-  var groundActive = true;
+  var groundActive = false;
 
   //array containing the marbles
   var objects = [];
@@ -183,7 +183,7 @@ window.onload = () => {
   document.getElementById('btn-pause-start').addEventListener('click', () => {
     groundActive = !groundActive;
     let btn = document.getElementById('btn-pause-start');
-    btn.innerHTML = btn.innerHTML === "Start" ? "Stop" : "Start";
+    btn.innerHTML = btn.innerHTML === "Stop" ? "Start" : "Stop";
     btn.classList.toggle("btn-success");
     btn.classList.toggle("btn-info");
   });
