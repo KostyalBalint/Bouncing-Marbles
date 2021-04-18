@@ -59,14 +59,14 @@ window.onload = () => {
   //Create ground and divider
   var ground = Body.create({
     //bottom part
-    parts: [Bodies.rectangle(400, 150, 810, 200, { render: {fillStyle: '#333333', strokeStyle: 'none'} }),
+    parts: [Bodies.rectangle(400, 600, 810, 200, { render: {fillStyle: '#333333', strokeStyle: 'none'} }),
             //separator
-            Bodies.rectangle(400, -100, 20, 300, { render: {fillStyle: '#333333', strokeStyle: 'none'} })],
+            Bodies.rectangle(400, 400, 20, 300, { render: {fillStyle: '#333333', strokeStyle: 'none'} })],
     isStatic: true,
   });
   // add all of the bodies to the world
   Composite.add(engine.world, [ground]);
-  var groundActive = true;
+  var groundActive = false;
 
   //array containing the marbles
   var objects = [];
@@ -134,9 +134,12 @@ window.onload = () => {
 
     //update ground and separator velocity and position
     if(groundActive){
-      var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
+      var omega = window.freq * 2 * 3.1415;
+      var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * omega);
+      //var v = -amp * freq / 60;                                                             //sawtooth formula, assuming 60 fps
+      var v = window.amp * omega * Math.cos((engine.timing.timestamp / 1000) * omega)/60;     //sine wave formula, assuming 60 fps
       if (window.freq == freqchange){ //Frequency change doesnt effect marbles
-        Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
+        Body.setVelocity(ground, { x: 0, y: v });
       }
       Body.setPosition(ground, { x: ground.position.x, y: py });
       freqchange = window.freq;
@@ -180,7 +183,7 @@ window.onload = () => {
   document.getElementById('btn-pause-start').addEventListener('click', () => {
     groundActive = !groundActive;
     let btn = document.getElementById('btn-pause-start');
-    btn.innerHTML = btn.innerHTML === "Start" ? "Stop" : "Start";
+    btn.innerHTML = btn.innerHTML === "Stop" ? "Start" : "Stop";
     btn.classList.toggle("btn-success");
     btn.classList.toggle("btn-info");
   });
