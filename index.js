@@ -44,7 +44,7 @@ window.onload = () => {
 
   window.marblecount = document.getElementById("range-marblecount").value;
   generateMarbles(window.marblecount);
-  
+
   //Create walls
   Composite.add(engine.world, [
       Bodies.rectangle(400, -25, 800, 100, { isStatic: true }),
@@ -64,8 +64,8 @@ window.onload = () => {
 
   window.freq = 5;
   window.amp = 10;
-  
-  
+
+
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
     var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
@@ -99,7 +99,7 @@ window.onload = () => {
   });
 
   //Restart button
-  document.getElementById("btn -restart").addEventListener("click", () => {
+  document.getElementById("btn-restart").addEventListener("click", () => {
     objects.forEach(element => {
       Composite.remove(engine.world, element);
     });
