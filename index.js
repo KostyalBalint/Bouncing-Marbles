@@ -103,6 +103,8 @@ window.onload = () => {
 
   //Restart button
   document.getElementById("btn-restart").addEventListener("click", () => {
+    engine.timing.timestamp = 0;
+    document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
     objects.forEach(element => {
       Composite.remove(engine.world, element);
     });
