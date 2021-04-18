@@ -43,6 +43,7 @@ function marble(x, y, r){
 }
 
 window.onload = () => {
+  var start = false;
 
   // create an engine
   engine = Engine.create(document.getElementById("canvas-container"));
@@ -115,6 +116,10 @@ window.onload = () => {
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
+    if (!start){
+      engine.timing.timestamp = 0;
+    }
+
     //add marbles until have equal to marblecount
     while(marblecount > objects.length){
       newObject = marble(rand(30, 380), rand(20, 500), r);
@@ -161,7 +166,7 @@ window.onload = () => {
     });
     document.getElementById("label-left").innerHTML = "Left (" + left + ")";
     document.getElementById("label-right").innerHTML = "Right (" + right + ")";
-});
+  });
 
   //frequency slider
   document.getElementById("range-freq").addEventListener('input', () => {
@@ -182,8 +187,9 @@ window.onload = () => {
     document.getElementById("label-marblecount").innerHTML = "Marble Count (" + window.marblecount + ")";
   });
 
-  //Start - Pause button
+  //Start - Stop button
   document.getElementById('btn-pause-start').addEventListener('click', () => {
+    start = true;
     groundActive = !groundActive;
     let btn = document.getElementById('btn-pause-start');
     btn.innerHTML = btn.innerHTML === "Stop" ? "Start" : "Stop";
@@ -202,6 +208,7 @@ window.onload = () => {
 
   //Restart button
   document.getElementById("btn-restart").addEventListener("click", () => {
+    start = false;
     engine.timing.timestamp = 0;
     document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
     objects.forEach(element => {
