@@ -20,3 +20,4 @@ Egy idő után a két rekeszben a gyöngyök száma állandósul (persze kicsit 
 - [X] Színek használata
 - [X] Szimuláció idejének kijelzése
 - [X] Gyöngyök darabszámának kijelzése oldalanként
+- [ ] Gyöngyök nagy sebességnél képesek átmenni a falon. Vagy a falak javítása valahogy, vagy a "kiszökött" gyöngyök törlése, és újak visszatétele az adott oldalra, ahová a kiszökött párja esik.
