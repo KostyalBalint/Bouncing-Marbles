@@ -29,7 +29,7 @@ function marble(x, y, r){
     restitution: 0.8,
     frictionAir: 0,
     frictionStatic: 0,
-    render:{fillStyle: 'blue'}
+    render:{fillStyle: '#3297DB'}
   });
 }
 
