@@ -2,26 +2,27 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link rel="stylesheet" href="bootstrap.min.css">
     <script src="matter.js" type="text/javascript"></script>
     <script src="index.js" type="text/javascript"></script>
   </head>
   <body class="bg-dark">
-    <div class="text-center mt-4 mb-4">
+    <div class="text-center mt-4 mb-4 pl-2 pr-2">
       <h1 class="text-white">Bouncing Marbles</h1>
     </div>
 
     <div class="container mt-3">
-      <div class="row">
-        <div class="col">
+      <div class="row d-flex flex-column-reverse flex-md-row">
+        <div class="col-12 col-md-4">
           <div class="card mb-3" style="background-color: var(--secondary)">
             <div class="card-body">
               <h3 class="text-center text-white">Settings</h3>
               <hr>
-              <button type="button" id="btn-pause-start" class="btn btn-success">Start</button>
-              <button type="button" id="btn-restart" class="btn btn-danger">Restart</button>
-              <button type="button" id="btn-freeze-continue" class="btn btn-info">Freeze</button>
+              <button type="button" id="btn-pause-start" class="btn btn-success m-1">Start</button>
+              <button type="button" id="btn-restart" class="btn btn-danger m-1">Restart</button>
+              <button type="button" id="btn-freeze-continue" class="btn btn-info m-1">Freeze</button>
               <hr>
               <label for="range-freq" class="form-label text-white" id="label-freq">Frequency (5 Hz)</label>
               <input type="range" class="form-range w-100" id="range-freq" min="0" max="50" value="5">
@@ -33,14 +34,31 @@
               <label class="form-label text-white" id="label-right">Right (0)</label>
             </div>
           </div>
-          <div class="card pl-2 pt-1" style="background-color : var(--secondary)">
-            <h5 class="text-white" id="timer">Time: </h5>
+          <div class="card d-flex justify-content-center mb-5" style="background-color : var(--secondary)">
+            <h5 class="text-white m-3" id="timer">Time: </h5>
           </div>
+          <div class="p-3"></div>
         </div>
-        <div class="col">
+        <div class="col-12 col-md-8">
           <div id="canvas-container" class="d-flex justify-content-center align-items-center mb-3"></div>
         </div>
       </div>
     </div>
+
+    <footer class="bg-light text-center text-lg-start">
+      <!-- Copyright -->
+      <div class="navbar fixed-bottom text-center p-3 text-white" style="background-color: hsl(209, 28%, 25%)">
+        <div class="text-center w-100">
+          <a href="http://www.vik.bme.hu/">BME VIK</a> - 2020 ©
+        </div>
+      </div>
+      <!-- Copyright -->
+    </footer>
+
+    <style>
+      canvas{
+        max-width: 100%;
+      }
+    </style>
   </body>
 </html>
