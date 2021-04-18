@@ -68,6 +68,14 @@ window.onload = () => {
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
+    while(marblecount > objects.length){
+      circle = Bodies.circle(50, 50, r);
+      objects.push(circle);
+      Composite.add(engine.world, circle);
+    }
+      while(marblecount < objects.length){
+      Composite.remove(engine.world, objects.pop());
+    }
     var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
     Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
     Body.setPosition(ground, { x: ground.position.x, y: py });
