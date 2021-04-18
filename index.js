@@ -18,7 +18,7 @@ function rand(min, max){
 function wall(x, y, w, h){
   return Bodies.rectangle(x, y, w, h, {
     friction: 0,
-    restitution: 0.8,
+    restitution: 0.6,
     frictionAir: 0,
     frictionStatic: 0,
     isStatic: true,
@@ -35,9 +35,9 @@ function wall(x, y, w, h){
 function marble(x, y, r){
   return Bodies.circle(x, y, r, {
     friction: 0,
-    restitution: 0.8,
-    frictionAir: 0,
-    frictionStatic: 0,
+    restitution: 0.6,
+    frictionAir: 0.01,
+    frictionStatic: 1,
     render:{fillStyle: '#3297DB'}
   });
 }
@@ -60,9 +60,9 @@ window.onload = () => {
   //Create ground and divider
   var ground = Body.create({
     //bottom part
-    parts: [Bodies.rectangle(400, 600, 810, 200, { render: {fillStyle: '#333333', strokeStyle: 'none'} }),
+    parts: [Bodies.rectangle(400, 600, 810, 200, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} }),
             //separator
-            Bodies.rectangle(400, 400, 20, 300, { render: {fillStyle: '#333333', strokeStyle: 'none'} })],
+            Bodies.rectangle(400, 400, 20, 300, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} })],
     isStatic: true,
   });
   // add all of the bodies to the world
@@ -77,11 +77,8 @@ window.onload = () => {
 
   //generate marbles
   function generateMarbles(count){
-    let x = 0, y = 0;
     for (var i = 0; i < count; i++) {
-      if (50 + x*r*2 >= 380) {x = 0; ++y;} //x can go until the divider
-      objects.push(marble(50 + x*r*2, 50 + y*r*2, r));
-      x++;
+      objects.push(marble(rand(30, 380), rand(20, 500), r));
     }
     Composite.add(engine.world, objects);
   }
