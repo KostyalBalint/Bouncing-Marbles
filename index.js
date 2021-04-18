@@ -74,6 +74,15 @@ window.onload = () => {
 
     //Timer update
     document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
+
+    //Counting marbles
+    let left = 0; right = 0;
+    objects.forEach(element => {
+      if (element.position.x > 400) {right++;}
+      else {left++;}
+      document.getElementById("label-left").innerHTML = "Left (" + left + ")";
+      document.getElementById("label-right").innerHTML = "Right (" + right + ")";
+    });
   });
 
   document.getElementById("range-freq").addEventListener('input', () => {
