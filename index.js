@@ -9,6 +9,30 @@ var Engine = Matter.Engine,
 
 var runner, engine;
 
+function wall(x, y, w, h){
+  return Bodies.rectangle(x, y, w, h, {
+    friction: 0,
+    restitution: 0.8,
+    frictionAir: 0,
+    frictionStatic: 0,
+    isStatic: true,
+    render: {
+      fillStyle: 'grey', 
+      strokeStyle: 'white',
+      lineWidth: 0
+    }
+  });
+}
+function marble(x, y, r){
+  return Bodies.circle(x, y, r, {
+    friction: 0,
+    restitution: 0.8,
+    frictionAir: 0,
+    frictionStatic: 0,
+    render:{fillStyle: 'blue'}
+  });
+}
+
 window.onload = () => {
 
   // create an engine
@@ -40,7 +64,7 @@ window.onload = () => {
     let x = 0, y = 0;
     for (var i = 0; i < count; i++) {
       if (50 + x*r*2 >= 390) {x = 0; ++y;} //x can go until the divider
-      objects.push(Bodies.circle(50 + x*r*2, 50 + y*r*2, r, {render:{fillStyle: 'blue'}}));
+      objects.push(marble(50 + x*r*2, 50 + y*r*2, r));
       x++;
     }
     Composite.add(engine.world, objects);
@@ -51,10 +75,10 @@ window.onload = () => {
 
   //Create walls
   Composite.add(engine.world, [
-    Bodies.rectangle(400, -25, 800, 100, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} }),
-    Bodies.rectangle(400, 625, 800, 100, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} }),
-    Bodies.rectangle(825, 300, 100, 600, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} }),
-    Bodies.rectangle(-25, 300, 100, 600, { isStatic: true, render: {fillStyle: 'grey', strokeStyle: 'white',lineWidth: 0} })
+    wall(400, -25, 800, 100),
+    wall(400, 625, 800, 100),
+    wall(825, 300, 100, 600),
+    wall(-25, 300, 100, 600)
   ]);
 
   // run the renderer
@@ -73,9 +97,9 @@ window.onload = () => {
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
     while(marblecount > objects.length){
-      circle = Bodies.circle(50, 50, r);
-      objects.push(circle);
-      Composite.add(engine.world, circle);
+      newObject = marble(50, 50, r);
+      objects.push(newObject);
+      Composite.add(engine.world, newObject);
     }
       while(marblecount < objects.length){
       Composite.remove(engine.world, objects.pop());
