@@ -66,12 +66,13 @@ window.onload = () => {
   });
   // add all of the bodies to the world
   Composite.add(engine.world, [ground]);
+  var groundActive = true;
 
   //array containing the marbles
   var objects = [];
 
   //radius of marbels
-  var r = 5;
+  var r = 7;
 
   //generate marbles
   function generateMarbles(count){
@@ -131,9 +132,13 @@ window.onload = () => {
     };
 
     //update ground and separator velocity and position
-    var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
-    Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
-    Body.setPosition(ground, { x: ground.position.x, y: py });
+    if(groundActive){
+      var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
+      Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
+      Body.setPosition(ground, { x: ground.position.x, y: py });
+    } else {
+      Body.setVelocity(ground, { x: 0, y: 0});
+    }
 
     //Timer update
     document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
@@ -169,9 +174,18 @@ window.onload = () => {
 
   //Start - Pause button
   document.getElementById('btn-pause-start').addEventListener('click', () => {
-    runner.enabled = !runner.enabled;
+    groundActive = !groundActive;
     let btn = document.getElementById('btn-pause-start');
-    btn.innerHTML = btn.innerHTML === "Start" ? "Pause" : "Start";
+    btn.innerHTML = btn.innerHTML === "Start" ? "Stop" : "Start";
+    btn.classList.toggle("btn-success");
+    btn.classList.toggle("btn-info");
+  });
+
+  //Freeze - Contunue button
+  document.getElementById('btn-freeze-continue').addEventListener('click', () => {
+    runner.enabled = !runner.enabled;
+    let btn = document.getElementById('btn-freeze-continue');
+    btn.innerHTML = btn.innerHTML === "Continue" ? "Freeze" : "Continue";
     btn.classList.toggle("btn-success");
     btn.classList.toggle("btn-info");
   });
