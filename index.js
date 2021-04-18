@@ -79,6 +79,18 @@ window.onload = () => {
     var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * window.freq * 2 * 3.1415);
     Body.setVelocity(ground, { x: 0, y: py - ground.position.y });
     Body.setPosition(ground, { x: ground.position.x, y: py });
+
+    //Timer update
+    document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
+
+    //Counting marbles
+    let left = 0; right = 0;
+    objects.forEach(element => {
+      if (element.position.x > 400) {right++;}
+      else {left++;}
+      document.getElementById("label-left").innerHTML = "Left (" + left + ")";
+      document.getElementById("label-right").innerHTML = "Right (" + right + ")";
+    });
   });
 
   document.getElementById("range-freq").addEventListener('input', () => {
@@ -87,9 +99,9 @@ window.onload = () => {
   });
 
   document.getElementById("range-amp").addEventListener('input', () => {
-    	let amp = document.getElementById("range-amp").value;
-    	document.getElementById("label-amp").innerHTML = "Amplitude (" + amp + ")";
-      window.amp = amp;
+    let amp = document.getElementById("range-amp").value;
+    document.getElementById("label-amp").innerHTML = "Amplitude (" + amp + ")";
+    window.amp = amp;
   });
 
   document.getElementById("range-marblecount").addEventListener('input', () => {
@@ -108,6 +120,8 @@ window.onload = () => {
 
   //Restart button
   document.getElementById("btn-restart").addEventListener("click", () => {
+    engine.timing.timestamp = 0;
+    document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
     objects.forEach(element => {
       Composite.remove(engine.world, element);
     });
