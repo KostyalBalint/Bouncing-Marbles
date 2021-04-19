@@ -60,7 +60,7 @@ window.onload = () => {
   //Create ground and divider
   var ground = Body.create({
     //bottom part
-    parts: [Bodies.rectangle(400, 600, 810, 200, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} }),
+    parts: [Bodies.rectangle(400, 607, 810, 200, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} }),
             //separator
             Bodies.rectangle(400, 400, 20, 300, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} })],
     isStatic: true,
@@ -140,8 +140,8 @@ window.onload = () => {
     //update ground and separator velocity and position
     if(groundActive){
       var omega = window.freq * 2 * 3.1415;
-      var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * omega);
-      var v = -amp * freq / 60;                                                             //sawtooth formula, assuming 60 fps
+      var py = 600 //+ window.amp * Math.sin((engine.timing.timestamp / 1000) * omega);         
+      var v = -amp * freq / 60;                                                                 //sawtooth formula, assuming 60 fps
       //var v = window.amp * omega * Math.cos((engine.timing.timestamp / 1000) * omega)/60;     //sine wave formula, assuming 60 fps
       if (window.freq == freqchange){ //Frequency change doesnt effect marbles
         Body.setVelocity(ground, { x: 0, y: v });
