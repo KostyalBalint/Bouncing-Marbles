@@ -110,6 +110,9 @@ window.onload = () => {
   window.amp = 10;
 
   var freqchange;
+  var rates = [];
+  var labels = [];
+  var prev_sec = 1000;
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
@@ -165,7 +168,43 @@ window.onload = () => {
     });
     document.getElementById("label-left").innerHTML = "Left: " + left + " Pcs";
     document.getElementById("label-right").innerHTML = "Right: " + right + " Pcs";
+	
+	// expand chart
+	if ((engine.timing.timestamp) > prev_sec){
+		prev_sec += 2800;
+		rates.push(right * 100 / marblecount);
+		labels.push(prev_sec / 1000 - 1);
+		myChart.update();
+	}
   });
+  
+  // chart declaration
+  var ctx = document.getElementById('myChart');
+	var myChart = new Chart(ctx, {
+	  type: 'line',
+	  data: {
+      labels: labels,//[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+	    datasets: [{
+	      label: '% of particles on the right',
+	      data: rates,
+	      backgroundColor: [
+	        'rgba(255, 99, 132, 0.2)'
+	      ],
+	      borderColor: [
+	        'rgba(255, 99, 132, 1)'
+	      ],
+	      borderWidth: 1
+	    }]
+	  },
+	  options: {
+	    scales: {
+	      y: {
+	        beginAtZero: true,
+	        max: 100
+	      }
+	    }
+	  }
+	});
 
   //frequency slider
   document.getElementById("range-freq").addEventListener('input', () => {
@@ -208,13 +247,6 @@ window.onload = () => {
   //Restart button
   document.getElementById("btn-restart").addEventListener("click", () => {
     start = false;
-    if(groundActive){
-      groundActive = false;
-      let btn = document.getElementById('btn-pause-start');
-      btn.innerHTML = btn.innerHTML === "Stop" ? "Start" : "Stop";
-      btn.classList.toggle("btn-success");
-      btn.classList.toggle("btn-info");
-    }
     engine.timing.timestamp = 0;
     document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
     objects.forEach(element => {
@@ -222,6 +254,14 @@ window.onload = () => {
     });
     objects = [];
     generateMarbles(window.marblecount);
+	
+	// reset chart
+	labels = []; rates = [];
+	myChart.data.datasets[0].data = rates;
+	myChart.data.labels = labels;
+	
+	prev_sec = 1000;
+	myChart.update();
   })
 
 };

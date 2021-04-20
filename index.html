@@ -6,6 +6,7 @@
     <title></title>
     <link rel="stylesheet" href="bootstrap.min.css">
     <script src="matter.js" type="text/javascript"></script>
+    <script src="chart.js" type="text/javascript"></script>
     <script src="index.js" type="text/javascript"></script>
   </head>
   <body class="bg-dark">
@@ -25,7 +26,7 @@
               <button type="button" id="btn-freeze-continue" class="btn btn-info m-1">Freeze</button>
               <hr>
               <label for="range-freq" class="form-label text-white" id="label-freq">Frequency (5 Hz)</label>
-              <input type="range" class="form-range w-100" id="range-freq" min="0" max="60" value="5">
+              <input type="range" class="form-range w-100" id="range-freq" min="0" max="50" value="5">
               <label for="range-amp" class="form-label text-white" id="label-amp">Amplitude (10)</label>
               <input type="range" class="form-range w-100" id="range-amp" min="0" max="30" value="10">
               <label for="range-marblecount" class="form-label text-white" id="label-marblecount">Marble Count (100)</label>
@@ -46,6 +47,9 @@
         <div class="col-12 col-md-8">
           <div id="canvas-container" class="d-flex justify-content-center align-items-center mb-3"></div>
         </div>
+		<div class="card pl-2 pt-1" style="background-color : var(--secondary)">
+            <canvas id="myChart" width="400" height="400"></canvas>
+		</div>
       </div>
     </div>
 
