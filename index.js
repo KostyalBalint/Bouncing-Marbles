@@ -176,6 +176,15 @@ window.onload = () => {
 		labels.push(prev_sec / 1000 - 1);
 		myChart.update();
 	}
+
+
+	var total = 0;
+	for(var i = 0; i < rates.length; i++) {
+		total += rates[i];
+	}
+	var avg = total / rates.length;
+	
+	document.getElementById("label-avg").innerHTML = "Avg: " + avg.toFixed(2) + "%";
   });
   
   // chart declaration
