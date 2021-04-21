@@ -239,31 +239,43 @@ window.onload = () => {
     start = true;
     groundActive = !groundActive;
     let btn = document.getElementById('btn-pause-start');
-    btn.innerHTML = btn.innerHTML === "Stop" ? "Start" : "Stop";
-    btn.classList.toggle("btn-success");
-    btn.classList.toggle("btn-info");
+    if (groundActive){
+      btn.innerHTML = "Stop movement";
+      btn.classList.add("btn-info");
+      btn.classList.remove("btn-success");
+    }
+    else {
+      btn.innerHTML = "Start movement";
+      btn.classList.add("btn-success");
+      btn.classList.remove("btn-info");
+    }
   });
 
   //Freeze - Contunue button
   document.getElementById('btn-freeze-continue').addEventListener('click', () => {
     runner.enabled = !runner.enabled;
     let btn = document.getElementById('btn-freeze-continue');
-    btn.innerHTML = btn.innerHTML === "Continue" ? "Freeze" : "Continue";
+    btn.innerHTML = btn.innerHTML === "Continue time" ? "Freeze time" : "Continue time";
     btn.classList.toggle("btn-success");
     btn.classList.toggle("btn-info");
   });
 
   //Restart button
   document.getElementById("btn-restart").addEventListener("click", () => {
-    start = false;
     engine.timing.timestamp = 0;
+    groundActive = false;
     document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
     objects.forEach(element => {
       Composite.remove(engine.world, element);
     });
     objects = [];
     generateMarbles(window.marblecount);
-	
+    
+    let btn = document.getElementById('btn-pause-start');
+    btn.innerHTML = "Start movement";
+    btn.classList.add("btn-success");
+    btn.classList.remove("btn-info");
+
 	// reset chart
 	labels = []; rates = [];
 	myChart.data.datasets[0].data = rates;
