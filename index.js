@@ -262,6 +262,8 @@ window.onload = () => {
 
   //Restart button
   document.getElementById("btn-restart").addEventListener("click", () => {
+    start = false;
+
     engine.timing.timestamp = 0;
     groundActive = false;
     document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
