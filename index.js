@@ -62,7 +62,7 @@ window.onload = () => {
     //bottom part
     parts: [Bodies.rectangle(400, 607, 810, 200, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} }),
             //separator
-            Bodies.rectangle(400, 400, 20, 300, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} })],
+            Bodies.rectangle(400, 400, 30, 300, { restitution: 0.6, render: {fillStyle: '#333333', strokeStyle: 'none'} })],
     isStatic: true,
   });
   // add all of the bodies to the world
@@ -78,7 +78,7 @@ window.onload = () => {
   //generate marbles
   function generateMarbles(count){
     for (var i = 0; i < count; i++) {
-      objects.push(marble(rand(30, 380), rand(20, 500), r));
+      objects.push(marble(rand(30, 300), rand(20, 500), r));
     }
     Composite.add(engine.world, objects);
   }
@@ -106,8 +106,8 @@ window.onload = () => {
   // run the engine
   Runner.run(runner, engine);
 
-  window.freq = 5;
-  window.amp = 10;
+  window.freq = 50;
+  window.amp = 20;
 
   var freqchange;
   var rates = [];
