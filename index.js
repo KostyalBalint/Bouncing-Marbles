@@ -110,9 +110,6 @@ window.onload = () => {
   window.amp = 20;
 
   var freqchange;
-  var rates = [];
-  var labels = [];
-  var prev_sec = 1000;
 
   //Add event listeners
   Events.on(engine, 'beforeUpdate', (event) =>{
@@ -138,7 +135,7 @@ window.onload = () => {
         Composite.remove(engine.world, objects[i]);
         objects.splice(i, 1);
       }
-    };
+    }
 
     //update ground and separator velocity and position
     if(groundActive){
@@ -148,7 +145,7 @@ window.onload = () => {
       //var py = 600 + window.amp * Math.sin((engine.timing.timestamp / 1000) * omega);
       var py = 600 + ((engine.timing.timestamp / 1000) % (1/freq))* v ; 
       
-      if (window.freq == freqchange){ //Frequency change doesnt effect marbles
+      if (window.freq === freqchange){ //Frequency change doesnt effect marbles
         Body.setVelocity(ground, { x: 0, y: v/100 });
       }
       Body.setPosition(ground, { x: ground.position.x, y: py });
@@ -168,52 +165,7 @@ window.onload = () => {
     });
     document.getElementById("label-left").innerHTML = "Left: " + left + " Pcs";
     document.getElementById("label-right").innerHTML = "Right: " + right + " Pcs";
-	
-	// expand chart
-	if ((engine.timing.timestamp) > prev_sec){
-		prev_sec += 2800;
-		rates.push(right * 100 / marblecount);
-		labels.push(prev_sec / 1000 - 1);
-		myChart.update();
-	}
-
-
-	var total = 0;
-	for(var i = 0; i < rates.length; i++) {
-		total += rates[i];
-	}
-	var avg = total / rates.length;
-	
-	document.getElementById("label-avg").innerHTML = "Avg: " + avg.toFixed(2) + "%";
   });
-  
-  // chart declaration
-  var ctx = document.getElementById('myChart');
-	var myChart = new Chart(ctx, {
-	  type: 'line',
-	  data: {
-      labels: labels,//[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-	    datasets: [{
-	      label: '% of particles on the right',
-	      data: rates,
-	      backgroundColor: [
-	        'rgba(255, 99, 132, 0.2)'
-	      ],
-	      borderColor: [
-	        'rgba(255, 99, 132, 1)'
-	      ],
-	      borderWidth: 1
-	    }]
-	  },
-	  options: {
-	    scales: {
-	      y: {
-	        beginAtZero: true,
-	        max: 100
-	      }
-	    }
-	  }
-	});
 
   //frequency slider
   document.getElementById("range-freq").addEventListener('input', () => {
@@ -278,13 +230,6 @@ window.onload = () => {
     btn.classList.add("btn-success");
     btn.classList.remove("btn-info");
 
-	// reset chart
-	labels = []; rates = [];
-	myChart.data.datasets[0].data = rates;
-	myChart.data.labels = labels;
-	
-	prev_sec = 1000;
-	myChart.update();
   })
 
 };
