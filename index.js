@@ -129,14 +129,6 @@ window.onload = () => {
       Composite.remove(engine.world, objects.pop());
     }
 
-    //constrain marbles
-    for(var i = 0; i < objects.length; i++){
-      if(objects[i].position.x < 0 || objects[i].position.x > 800 || objects[i].position.y < 0 || objects[i].position.y > 800){
-        Composite.remove(engine.world, objects[i]);
-        objects.splice(i, 1);
-      }
-    }
-
     //update ground and separator velocity and position
     if(groundActive){
       var omega = window.freq * 2 * 3.1415;
@@ -157,9 +149,13 @@ window.onload = () => {
     //Timer update
     document.getElementById("timer").innerHTML = "Timer: " + (engine.timing.timestamp / 1000).toFixed(3) + "s";
 
-    //Counting marbles
+    //Counting marbles and constraining the marbles
     let left = 0; right = 0;
-    objects.forEach(element => {
+    objects.forEach((element, i) => {
+      if(element.position.x < 20 || element.position.x > 780 || element.position.y < 20 || element.position.y > 780){
+        Composite.remove(engine.world, element);
+        objects.splice(i, 1);
+      }
       if (element.position.x > 400) {right++; element.render.fillStyle = '#E84C3D'}
       else {left++; element.render.fillStyle = '#3297DB'}
     });
